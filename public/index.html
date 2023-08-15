@@ -39,5 +39,113 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
-</html>
+ 
+    <div id="preguntas"></div>
+
+    <button id="siguienteBtn">Siguiente</button>
+    
+    <script>
+      let preguntas = [];
+      let preguntaActual = 0;
+    
+      function mostrarPregunta() {
+        const contenedorPreguntas = document.getElementById('preguntas');
+        contenedorPreguntas.innerHTML = '';
+    
+        const elementoPregunta = document.createElement('p');
+        elementoPregunta.textContent = preguntas[preguntaActual].question;
+        contenedorPreguntas.appendChild(elementoPregunta);
+      }
+    
+      function cargarPreguntas() {
+        fetch('https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean')
+          .then(response => response.json())
+          .then(data => {
+            preguntas = data.results;
+            mostrarPregunta();
+          })
+          .catch(error => console.error(error));
+      }
+    
+      function siguientePregunta() {
+        preguntaActual++;
+        if (preguntaActual < preguntas.length) {
+          mostrarPregunta();
+        } else {
+          alert('Has respondido todas las preguntas.');
+          preguntaActual = 0; // Reiniciar el contador para volver a empezar
+          mostrarPregunta();
+        }
+      }
+    
+      document.getElementById('siguienteBtn').addEventListener('click', siguientePregunta);
+    
+      cargarPreguntas();
+    </script>
+
+<div id="preguntas"></div>
+
+<div>
+  <button id="verdaderoBtn">Verdadero</button>
+  <button id="falsoBtn">Falso</button>
+  <button id="siguienteBtn">Siguiente</button>
+</div>
+
+<div id="preguntas"></div>
+
+<div>
+  <button id="verdaderoBtn">Verdadero</button>
+  <button id="falsoBtn">Falso</button>
+  <button id="siguienteBtn">Siguiente</button>
+</div>
+
+<script>
+  let preguntas = [];
+  let preguntaActual = 0;
+
+  function mostrarPregunta() {
+    const contenedorPreguntas = document.getElementById('preguntas');
+    contenedorPreguntas.innerHTML = '';
+
+    const elementoPregunta = document.createElement('p');
+    elementoPregunta.textContent = preguntas[preguntaActual].question;
+    contenedorPreguntas.appendChild(elementoPregunta);
+  }
+
+  function cargarPreguntas() {
+    fetch('https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean')
+      .then(response => response.json())
+      .then(data => {
+        preguntas = data.results;
+        mostrarPregunta();
+      })
+      .catch(error => console.error(error));
+  }
+
+  function siguientePregunta() {
+    preguntaActual++;
+    if (preguntaActual < preguntas.length) {
+      mostrarPregunta();
+    } else {
+      alert('Has respondido todas las preguntas.');
+      preguntaActual = 0; // Reiniciar el contador para volver a empezar
+      mostrarPregunta();
+    }
+  }
+
+  function responderVerdadero() {
+    // Lógica para manejar la respuesta verdadera
+    console.log('El usuario eligió Verdadero');
+  }
+
+  function responderFalso() {
+    // Lógica para manejar la respuesta falsa
+    console.log('El usuario eligió Falso');
+  }
+
+  document.getElementById('siguienteBtn').addEventListener('click', siguientePregunta);
+  document.getElementById('verdaderoBtn').addEventListener('click', responderVerdadero);
+  document.getElementById('falsoBtn').addEventListener('click', responderFalso);
+
+  cargarPreguntas();
+</script>
